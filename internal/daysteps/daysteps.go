@@ -28,7 +28,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	numSteps, err := strconv.Atoi(parts[0])
 	if err != nil {
 		log.Printf("не удалось преобразовать %s в число шагов: %v", parts[0], err)
-		return 0, 0, fmt.Errorf("не удалось преобразовать %s в число шагов: %v", parts[0], err)
+		return 0, 0, fmt.Errorf("не удалось преобразовать %s в число шагов: %w", parts[0], err)
 	}
 	if numSteps <= 0 {
 		log.Printf("количество шагов должно быть положительным, получено: %d", numSteps)
@@ -38,7 +38,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	durationWalk, err := time.ParseDuration(parts[1])
 	if err != nil {
 		log.Printf("не удалось преобразовать %s в длительность: %v", parts[1], err)
-		return 0, 0, fmt.Errorf("не удалось преобразовать %s в длительность: %v", parts[1], err)
+		return 0, 0, fmt.Errorf("не удалось преобразовать %s в длительность: %w", parts[1], err)
 
 	}
 	if durationWalk <= 0 {
