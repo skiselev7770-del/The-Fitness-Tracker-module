@@ -25,7 +25,7 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	}
 	numSteps, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return 0, "", 0, fmt.Errorf("не удалось преобразовать %s в число шагов: %v", parts[0], err)
+		return 0, "", 0, fmt.Errorf("не удалось преобразовать %s в число шагов: %w", parts[0], err)
 	}
 	if numSteps <= 0 {
 		return 0, "", 0, fmt.Errorf("количество шагов должно быть положительным, получено: %d", numSteps)
@@ -33,7 +33,7 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 
 	durationWalk, err := time.ParseDuration(parts[2])
 	if err != nil {
-		return 0, "", 0, fmt.Errorf("не удалось преобразовать %s в длительность: %v", parts[1], err)
+		return 0, "", 0, fmt.Errorf("не удалось преобразовать %s в длительность: %w", parts[1], err)
 	}
 	if durationWalk <= 0 {
 		return 0, "", 0, fmt.Errorf("продолжительность не может быть меньше нуля, получено: %v", durationWalk)
@@ -99,7 +99,7 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		calculatedMeanSpeed = meanSpeed(numSteps, height, durationTraining)
 		calculatedCalories, err = WalkingSpentCalories(numSteps, weight, height, durationTraining)
 		if err != nil {
-			return "", fmt.Errorf("Ошибка: %v", err)
+			return "", fmt.Errorf("Ошибка: %w", err)
 		}
 
 		return fmt.Sprintf(
@@ -115,7 +115,7 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		calculatedMeanSpeed = meanSpeed(numSteps, height, durationTraining)
 		calculatedCalories, err = RunningSpentCalories(numSteps, weight, height, durationTraining)
 		if err != nil {
-			return "", fmt.Errorf("Ошибка: %v", err)
+			return "", fmt.Errorf("Ошибка: %w", err)
 		}
 
 		return fmt.Sprintf(
